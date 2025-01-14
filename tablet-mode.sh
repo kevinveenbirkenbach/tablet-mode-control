@@ -1,7 +1,24 @@
 #!/bin/bash
 
+# Function to find the device that reports tablet mode
+find_switch_device() {
+    echo "Searching for device with platform-INTC1070:00 and ID_INPUT_SWITCH=1..." >&2
+    for device in /dev/input/event*; do
+        echo "Checking: $device" >&2
+        # Prüfe auf ID_INPUT_SWITCH=1 und den passenden DEVPATH
+        if udevadm info --query=property --name="$device" 2>/dev/null | grep -q "ID_INPUT_SWITCH=1" &&
+           udevadm info --query=property --name="$device" 2>/dev/null | grep -q "DEVPATH=/devices/platform/INTC1070:00"; then
+            echo "Found tablet mode device: $device" >&2
+            echo "$device"
+            return
+        fi
+    done
+    echo "Error: No device matching platform-INTC1070:00 with ID_INPUT_SWITCH=1 found." >&2
+    exit 1
+}
+
 # Path to the device that reports tablet mode
-SWITCH_DEVICE="/dev/input/event8"
+SWITCH_DEVICE=$(find_switch_device)
 
 # Function to enable the virtual keyboard
 enable_virtual_keyboard() {
