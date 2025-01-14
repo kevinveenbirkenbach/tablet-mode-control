@@ -1,19 +1,19 @@
 #!/bin/bash
 
-# Definition des Zielpfads für das Tablet-Modus-Skript
+# Define the target path for the tablet mode script
 TARGET_PATH="/usr/local/bin/tablet-mode.sh"
 
-# Installiere Abhängigkeiten
-echo "Installiere benötigte Pakete..."
+# Install dependencies
+echo "Installing required packages..."
 sudo pacman -S --noconfirm evtest onboard
 
-# Kopiere das Tablet-Modus-Skript in den Zielpfad
-echo "Kopiere tablet-mode.sh nach $TARGET_PATH..."
+# Copy the tablet mode script to the target path
+echo "Copying tablet-mode.sh to $TARGET_PATH..."
 sudo cp tablet-mode.sh "$TARGET_PATH"
 sudo chmod +x "$TARGET_PATH"
 
-# Skript in den Autostart integrieren
-echo "Integriere $TARGET_PATH in den Autostart..."
+# Integrate the script into the autostart
+echo "Integrating $TARGET_PATH into autostart..."
 mkdir -p ~/.config/autostart
 cat << DESKTOP > ~/.config/autostart/tablet-mode.desktop
 [Desktop Entry]
@@ -26,4 +26,4 @@ Name=Tablet Mode Detection
 Comment=Detect tablet mode and toggle virtual keyboard
 DESKTOP
 
-echo "Setup abgeschlossen! Das Skript wird beim nächsten Login ausgeführt."
+echo "Setup completed! The script will run on the next login."
