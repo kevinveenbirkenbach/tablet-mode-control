@@ -3,10 +3,6 @@
 # Define the target path for the tablet mode script
 TARGET_PATH="/usr/local/bin/tablet-mode.sh"
 
-# Install dependencies
-echo "Installing required packages..."
-sudo pacman -S --noconfirm evtest onboard
-
 # Copy the tablet mode script to the target path
 echo "Copying tablet-mode.sh to $TARGET_PATH..."
 sudo cp tablet-mode.sh "$TARGET_PATH"
