@@ -14,7 +14,7 @@ mkdir -p ~/.config/autostart
 cat << DESKTOP > ~/.config/autostart/tablet-mode.desktop
 [Desktop Entry]
 Type=Application
-Exec=sudo $TARGET_PATH
+Exec=$TARGET_PATH > /tmp/tablet-mode.log 2>&1
 Hidden=false
 NoDisplay=false
 X-GNOME-Autostart-enabled=true
